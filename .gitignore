@@ -1,0 +1,18 @@
+# 本地备份与工作目录（不进仓库）
+backup/
+.workbuddy/
+build/_cdp/
+build/buildlog.txt
+build/_*.py
+
+# WPF 试验版（已放弃）
+src/
+
+# 构建中间产物
+build/native/bin/
+build/native/obj/
+build/native/out/
+buildlog.txt
+
+# 产物（发 Release，不进 git）
+*.exe

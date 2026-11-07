@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PCL 主页工坊</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%231677C8'/%3E%3Ctext x='32' y='45' font-family='Segoe UI,Microsoft YaHei' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EP%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- 标题栏（蓝） -->
+  <header class="titlebar" id="titlebar">
+    <div class="brand">
+      <span class="logo">PCL</span>
+      <b>主页工坊</b>
+    </div>
+
+    <div class="docbox">
+      <input id="docName" value="Custom" spellcheck="false" title="导出的文件名" />
+      <span class="ext">.xaml</span>
+    </div>
+
+    <div class="vsep light"></div>
+
+    <button class="tbico" id="btnUndo" title="撤销 Ctrl+Z">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5L4.5 9 8 12.5"/><path d="M4.5 9h7a4 4 0 010 8H8.5"/></svg>
+    </button>
+    <button class="tbico" id="btnRedo" title="重做 Ctrl+Shift+Z">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5L15.5 9 12 12.5"/><path d="M15.5 9h-7a4 4 0 000 8h3"/></svg>
+    </button>
+
+    <div class="spacer"></div>
+
+    <button class="tbbtn" id="btnPreview">预览</button>
+    <button class="tbbtn primary" id="btnExport">导出 XAML</button>
+
+    <div class="winbtns" id="winBtns">
+      <button data-win="min" title="最小化">
+        <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.2 5h5.6"/></svg>
+      </button>
+      <button data-win="max" title="最大化">
+        <svg class="i-max" viewBox="0 0 10 10" aria-hidden="true">
+          <rect x="2.6" y="2.6" width="4.8" height="4.8" rx=".8"/>
+        </svg>
+        <svg class="i-restore" viewBox="0 0 10 10" aria-hidden="true">
+          <rect x="1.9" y="3.5" width="4.6" height="4.6" rx=".8"/>
+          <path d="M3.5 3.5V2.1h4.4v4.4H6.5"/>
+        </svg>
+      </button>
+      <button data-win="close" title="关闭">
+        <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.6 2.6l4.8 4.8M7.4 2.6l-4.8 4.8"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 工具条（白） -->
+  <div class="toolbar">
+    <select id="tplSelect" class="inp sel" title="套用模板">
+      <option value="">模板…</option>
+      <option value="classic">经典主页</option>
+      <option value="dark">深色极简</option>
+      <option value="blank">空白</option>
+    </select>
+    <div class="vsep"></div>
+    <button class="tbtn" id="btnChrome" title="显示 / 隐藏启动器外框">启动器外框</button>
+    <button class="tbtn" id="btnSave" title="保存工程 Ctrl+S">保存</button>
+    <div class="spacer"></div>
+    <div class="zoombox">
+      <button id="btnZoomOut" title="缩小">−</button>
+      <span id="zoomLabel">100%</span>
+      <button id="btnZoomIn" title="放大">+</button>
+      <button id="btnFit" title="适应窗口">适应</button>
+    </div>
+  </div>
+
+  <!-- 主体 -->
+  <main class="main">
+    <aside class="panel left">
+      <div class="phead">
+        <span class="ptitle">组件库</span>
+        <input id="palSearch" class="inp search" placeholder="搜索" spellcheck="false" />
+      </div>
+      <div class="palette" id="palette"></div>
+
+      <div class="layers-wrap">
+        <div class="phead sub">
+          <span class="ptitle">图层</span>
+          <span class="tag" id="layerCount">0</span>
+        </div>
+        <div class="layers" id="layers"></div>
+      </div>
+    </aside>
+
+    <section class="workspace" id="stage">
+      <div class="stage-inner" id="stageInner"></div>
+    </section>
+
+    <aside class="panel right">
+      <div class="phead">
+        <span class="ptitle" id="inspectorTitle">页面设置</span>
+      </div>
+      <div class="inspector" id="inspector"></div>
+    </aside>
+  </main>
+
+  <footer class="statusbar">
+    <div class="sb-left"><span class="dot"></span><span id="sbInfo">就绪</span></div>
+    <div class="sb-right">拖动调整顺序 · 双击文字直接改 · Ctrl+↑↓ 上下移动</div>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- 导出弹窗 -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h3>导出</h3>
+        <p id="modalSub">文件名 Custom.xaml，放进 PCL 目录里的 PCL 文件夹</p>
+      </div>
+      <button class="mclose" id="modalClose" title="关闭">✕</button>
+    </div>
+    <div class="modal-tabs">
+      <button class="mtab on" data-tab="xaml">Custom.xaml</button>
+      <button class="mtab" data-tab="json">工程 JSON</button>
+    </div>
+    <pre class="code" id="codeView"></pre>
+    <div class="modal-foot">
+      <div class="modal-note" id="modalNote"></div>
+      <div class="modal-actions">
+        <button class="btn" id="btnCopy">复制</button>
+        <button class="btn primary" id="btnDownload">下载 Custom.xaml</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

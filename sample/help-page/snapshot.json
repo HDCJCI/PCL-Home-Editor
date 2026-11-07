@@ -1,0 +1,9 @@
+{
+  "Title": "26.3 版本详情",
+  "Description": "新特性一览 · 从自定义主页打开的独立页面",
+  "Keywords": "版本,更新,快照,详情",
+  "Types": ["我的主页"],
+  "ShowInSearch": false,
+  "ShowInPublic": false,
+  "ShowInSnapshot": false
+}

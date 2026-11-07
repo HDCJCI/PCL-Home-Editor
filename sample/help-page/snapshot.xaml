@@ -1,0 +1,26 @@
+<!-- 这个文件的内容和 Custom.xaml 用的是同一套解析规则（PCL 会去掉 xmlns、自动套根节点） -->
+<local:MyCard Title="26.3" Margin="0,0,0,15">
+    <StackPanel Margin="25,40,23,15">
+
+        <!-- 大图 + 压在图片下沿的蓝色版本号标签 -->
+        <Border BorderBrush="#FF0E6FD0" BorderThickness="3" CornerRadius="6" Margin="0,0,0,0">
+            <local:MyImage Source="" Height="150" />
+        </Border>
+        <Border Background="#FF0E6FD0" BorderBrush="#FF0E6FD0" BorderThickness="0"
+                CornerRadius="5" Padding="14,3,14,6"
+                Width="150" HorizontalAlignment="Center" Margin="0,-14,0,12">
+            <TextBlock Text="26.3" FontSize="17" Foreground="#FFFFFFFF" TextAlignment="Center" TextWrapping="Wrap" />
+        </Border>
+
+        <TextBlock Text="新特性" FontSize="19" FontWeight="Bold" Foreground="#FF1677C8"
+                   TextWrapping="Wrap" Margin="0,4,0,10" />
+
+        <TextBlock TextWrapping="Wrap" FontSize="13" Margin="0,0,0,14"
+                   Text="· 加入了斑驳森林生物群系。&#xA;· 加入了杨树。&#xA;· 加入了倒下的杨树。&#xA;· 加入了红色杨树树叶、橙色杨树树叶和黄色杨树树叶方块。&#xA;· 加入了杨木系列方块。&#xA;· 加入了层孔菌。&#xA;· 加入了红灌木。&#xA;· 加入了废弃营地结构。&#xA;· 加入了新的探险家地图。&#xA;· 加入了坐垫。&#xA;· 加入了麦秆床。&#xA;· 为所有羊毛方块加入了羊毛楼梯和羊毛台阶。" />
+
+        <local:MyHint Text="这个页面是自定义的，内容写在 PCL\Help\snapshot.xaml 里" Theme="Blue" Margin="0,0,0,10" />
+
+        <local:MyButton Text="返回主页" EventType="切换页面" EventData="Launch" Height="36" Margin="0,0,0,0" />
+
+    </StackPanel>
+</local:MyCard>
