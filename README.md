@@ -4,6 +4,22 @@
 
 ---
 
+## ⬇️ 下载与安全提示
+
+从 [Releases](https://github.com/HDCJCI/PCL-Home-Editor/releases) 下载 EXE 时，Windows SmartScreen 可能弹出
+**「Windows 已保护你的电脑」**。这是对**新发布、未签名、零下载量**程序的标准拦截，不代表有病毒。
+
+放行方法：点弹窗里的 **更多信息** → 出现 **仍要运行** 按钮 → 点击即可。
+
+校验（可选，PowerShell 里执行，和下面一致就没被篡改）：
+
+```powershell
+Get-FileHash PCL-Home-Editor.exe -Algorithm SHA256
+# v1.0.0: c257431aeb15599d2dcd00734e47ea30a0638dc809a09fe1a36a97b14272ca82
+```
+
+---
+
 ## 🚀 两种打开方式
 
 | 方式 | 怎么做 | 说明 |
